@@ -3,18 +3,16 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ticketing_system/constants/colors.dart';
-import 'package:ticketing_system/services/auth_service.dart';
+import 'package:ticketing_system/services/api_service.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
-    final loginController =
-        Get.put(LoginController(authService: AuthService()));
+    final loginController = Get.put(LoginController(authService: ApiService()));
 
     return Scaffold(
       body: Column(
@@ -34,13 +32,11 @@ class LoginView extends StatelessWidget {
                         children: [
                           TextFormField(
                             controller: _emailController,
-                            
                             decoration: InputDecoration(
                               labelText: 'Email',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              
                               prefixIcon: const Icon(
                                 Icons.email_outlined,
                                 color: orange,

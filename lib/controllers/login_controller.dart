@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import '../models/login_model.dart';
-import '../services/auth_service.dart';
+import '../services/api_service.dart';
 
 class LoginController extends GetxController {
-  final AuthService authService;
+  final ApiService authService;
 
   LoginController({required this.authService});
 
@@ -20,9 +20,8 @@ class LoginController extends GetxController {
 
     try {
       final loginResponse = await authService.login(loginRequest);
-      // Handle successful login
 
-      Get.toNamed('/home', arguments: loginResponse);
+      Get.offNamed('/home', arguments: loginResponse);
     } catch (e) {
       print(e);
       Get.snackbar('Login Failed', e.toString(),

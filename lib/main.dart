@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:ticketing_system/app/routes.dart';
+import 'package:ticketing_system/services/api_service.dart';
 import 'package:ticketing_system/utils/theme.dart';
 
 import 'package:ticketing_system/view/login_view.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
+  final apiService = ApiService();
+
   runApp(MyApp());
 }
 
