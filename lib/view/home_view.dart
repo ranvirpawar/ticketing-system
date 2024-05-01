@@ -9,8 +9,6 @@ import 'package:ticketing_system/view/components/daily_task_list.dart';
 
 class HomeView extends StatelessWidget {
   // const HomeView({super.key});
-  final DailyTaskController dailyTaskController =
-      Get.put(DailyTaskController());
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +16,6 @@ class HomeView extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(appName),
-        centerTitle: true,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -35,60 +29,6 @@ class HomeView extends StatelessWidget {
                 child: const Center(
                   child: Text(dashBoard),
                 ),
-              ),
-            ),
-            const HeightSizedBox(),
-            const Row(children: [Icon(Icons.grid_4x4_outlined)]),
-            const Divider(),
-            const HeightSizedBox(),
-            // SingleChildScrollView(
-            //   scrollDirection: Axis.horizontal,
-            //   child: Row(
-            //     children: [
-            //       SizedBox(
-            //         width: screenWidth * 0.70,
-            //         height: screenHeight * 0.4,
-            //         child: Container(
-            //           color: lightBeige,
-            //           child: SingleChildScrollView(
-            //             child: Column(
-            //               children: [
-            //                 Text('Daily Tasks'),
-            //                 Expanded(
-            //                   child: DailyTaskListView(),
-            //                 ),
-            //               ],
-            //               // show the list of Daily tasks
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //       const WidthSizedBox(),
-            //       SizedBox(
-            //         width: screenWidth * 0.70,
-            //         height: screenHeight * 0.4,
-            //         child: Container(
-            //           color: lightBeige,
-            //           child: const Column(),
-            //         ),
-            //       ),
-            //       const WidthSizedBox(),
-            //       SizedBox(
-            //         width: screenWidth * 0.70,
-            //         height: screenHeight * 0.4,
-            //         child: Container(
-            //           color: lightBeige,
-            //           child: const Column(),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
-            SingleChildScrollView(
-              child: SizedBox(
-                height: screenHeight * 0.4,
-                child: Column(),
               ),
             ),
           ],

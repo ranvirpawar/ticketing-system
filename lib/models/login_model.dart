@@ -1,3 +1,5 @@
+import 'package:ticketing_system/models/user_model.dart';
+
 class LoginRequest {
   final String email;
   final String password;
@@ -17,17 +19,17 @@ class LoginRequest {
 
 class LoginResponse {
   final String token;
-  // Add other fields from the API response
+  final UserModel user;
 
   LoginResponse({
     required this.token,
-    // Initialize other fields
+    required this.user,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
       token: json['token'],
-      // Assign other fields from the JSON
+      user: UserModel.fromJson(json['data']),
     );
   }
 }

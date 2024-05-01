@@ -8,6 +8,7 @@ class LoginController extends GetxController {
   LoginController({required this.authService});
 
   final _isLoading = false.obs;
+
   bool get isLoading => _isLoading.value;
 
   Future<void> login(String email, String password) async {
@@ -17,11 +18,13 @@ class LoginController extends GetxController {
       email: email,
       password: password,
     );
+    print('z🤷‍♂️' + loginRequest.toString());
 
     try {
       final loginResponse = await authService.login(loginRequest);
+      print('🔛🔛' + loginResponse.toString());
 
-      Get.offNamed('/home', arguments: loginResponse);
+      Get.offNamed('/homescreen', arguments: loginResponse);
     } catch (e) {
       print(e);
       Get.snackbar('Login Failed', e.toString(),

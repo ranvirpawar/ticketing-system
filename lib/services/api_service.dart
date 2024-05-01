@@ -18,8 +18,10 @@ class ApiService extends GetxService {
       );
       if (response.data['status'] == 1 &&
           response.data['message'] == 'Record found !!!') {
-        return LoginResponse.fromJson(response.data);
         _authToken = response.data['token'];
+        print('💖💖💖💖$_authToken');
+        print(response.data.toString() + '✌️✌️ yah login');
+        return LoginResponse.fromJson(response.data);
       } else {
         throw Exception('Login failed: ${response.data['message']}');
       }
