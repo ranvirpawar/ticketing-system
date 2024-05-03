@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ticketing_system/constants/colors.dart';
 import 'package:ticketing_system/constants/text_strings.dart';
 import 'package:ticketing_system/models/login_model.dart';
-import 'package:ticketing_system/view/home_view.dart';
+import 'package:ticketing_system/view/Tasklist/daily_task.dart';
+import 'package:ticketing_system/view/dashboard_screen.dart';
 import 'package:ticketing_system/view/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,13 +17,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   late final List<Widget> _screens = [
-    HomeView(),
+    DashBoardScreen(),
     Container(
       color: grape,
     ),
-    Container(
-      color: lightBeige,
-    ),
+    TaskScreen(),
     Container(
       color: fadedPurple,
     ),

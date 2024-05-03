@@ -1,27 +1,34 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get/get.dart';
-import 'package:ticketing_system/models/daily_task_model.dart';
-import '../models/login_model.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
+import 'package:ticketing_system/models/login_model.dart';
+import 'package:ticketing_system/models/task_modal.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiService extends GetxService {
   final Dio _dio = Dio();
-  String? _authToken;
 
-///// Login    ////////
+  String? authToken;
+  final storage = const FlutterSecureStorage();
+
+  //authentication of user
   Future<LoginResponse> login(LoginRequest request) async {
     try {
-      // in post api heating we need to send the req body
       final response = await _dio.post(
         '${dotenv.env['baseUrl']}/login',
         data: request.toJson(),
       );
+
       if (response.data['status'] == 1 &&
           response.data['message'] == 'Record found !!!') {
-        _authToken = response.data['token'];
-        print('💖💖💖💖$_authToken');
-        print(response.data.toString() + '✌️✌️ yah login');
-        return LoginResponse.fromJson(response.data);
+        final loginResponse = LoginResponse.fromJson(response.data);
+        authToken = loginResponse.token;
+
+        await storage.write(key: 'loginToken', value: '$authToken');
+
+        print('inside login method $authToken ');
+
+        return loginResponse;
       } else {
         throw Exception('Login failed: ${response.data['message']}');
       }
@@ -35,29 +42,38 @@ class ApiService extends GetxService {
     }
   }
 
-  Future<List<DailyTaskModel>> fetchDailyTasks() async {
-    try {
-      final response = await _dio.get(
-        '${dotenv.env['baseUrl']}/dashboard/463',
-        options: Options(
-          headers: {
-            'Autherization': 'Bearer $_authToken',
-          },
-        ),
-      );
-      print(response.data);
+  Future<List<dynamic>> fetchDailyTasks() async {
+    final loginToken = await storage.read(key: 'loginToken');
+    String? token = loginToken;
+    print('token from secure storage $token');
 
-      if (response.data['status'] == 1 &&
-          response.data['message'] == 'Record found') {
-        final dailyTasks = (response.data['data']['dailyTask'] as List)
-            .map((task) => DailyTaskModel.fromJson(task))
-            .toList();
-        return dailyTasks;
+    try {
+      if (token != null) {
+        final response = await _dio.get(
+          '${dotenv.env['baseUrl']}/dashboard/463',
+          options: Options(
+            headers: {'Authorization': 'Bearer $token'},
+          ),
+        );
+
+        print(response.data['status']);
+        print(response.data['message']);
+
+        if (response.statusCode == 200) {
+          final taskResponse = TasksResponse.fromJson(response.data);
+          print(taskResponse.data.dailyTask);
+          return taskResponse.data.dailyTask;
+        } else {
+          print(" exception occurred");
+          throw Exception(
+              'Failed to fetch daily task: ${response.data['message']}');
+        }
       } else {
-        throw Exception('Failed to fetch daily tasks');
+        throw Exception('Authentication token is not available');
       }
-    } on DioException catch (e) {
-      throw Exception('Error fetching daily tasks: $e');
+    } catch (e) {
+      print(e);
+      return [];
     }
   }
 }

@@ -13,17 +13,13 @@ class LoginController extends GetxController {
 
   Future<void> login(String email, String password) async {
     _isLoading.value = true;
-
     final loginRequest = LoginRequest(
       email: email,
       password: password,
     );
-    print('z🤷‍♂️' + loginRequest.toString());
-
     try {
       final loginResponse = await authService.login(loginRequest);
       print('🔛🔛' + loginResponse.toString());
-
       Get.offNamed('/homescreen', arguments: loginResponse);
     } catch (e) {
       print(e);

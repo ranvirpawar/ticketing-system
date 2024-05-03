@@ -9,7 +9,7 @@ import 'package:ticketing_system/view/login_view.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
-  final apiService = ApiService();
+  Get.put(ApiService());
 
   runApp(MyApp());
 }
