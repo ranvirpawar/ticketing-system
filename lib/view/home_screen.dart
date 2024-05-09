@@ -3,6 +3,7 @@ import 'package:ticketing_system/constants/colors.dart';
 import 'package:ticketing_system/constants/text_strings.dart';
 import 'package:ticketing_system/models/login_model.dart';
 import 'package:ticketing_system/view/Tasklist/daily_task.dart';
+import 'package:ticketing_system/view/Tasklist/total_task_list.dart';
 import 'package:ticketing_system/view/dashboard_screen.dart';
 import 'package:ticketing_system/view/profile_screen.dart';
 
@@ -22,9 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       color: grape,
     ),
     TaskScreen(),
-    Container(
-      color: fadedPurple,
-    ),
+    TotalTaskListScreen(),
     ProfilePage(loginResponse: widget.loginResponse),
   ];
   @override
@@ -35,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text(appName),
           centerTitle: true,
+          backgroundColor: fadedPurple,
         ),
         body: _screens[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
@@ -58,9 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'To Do',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.list_alt_sharp),
-              label: 'Bill',
-            ),
+                icon: Icon(Icons.list_alt_sharp), label: 'Total Tasks'),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_2_outlined),
               label: 'Profile',

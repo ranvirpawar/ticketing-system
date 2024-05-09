@@ -4,9 +4,12 @@ import 'package:ticketing_system/components/sizebox.dart';
 import 'package:ticketing_system/constants/colors.dart';
 
 class ProfileFieldWidget extends StatelessWidget {
+
+  
   final String label;
   final String value;
   final IconData icon;
+
   const ProfileFieldWidget({
     super.key,
     // required this.user,

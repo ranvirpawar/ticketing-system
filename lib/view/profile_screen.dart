@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ticketing_system/components/sizebox.dart';
-import 'package:ticketing_system/constants/colors.dart';
+
 import 'package:ticketing_system/models/login_model.dart';
-import 'package:ticketing_system/models/user_model.dart';
+
 import 'package:ticketing_system/view/widgets/profile_field_widget.dart';
 
 class ProfilePage extends StatefulWidget {
