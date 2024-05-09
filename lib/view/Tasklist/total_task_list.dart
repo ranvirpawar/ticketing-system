@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:ticketing_system/constants/icons.dart';
 import 'package:ticketing_system/models/task_modal.dart';
 import 'package:ticketing_system/services/api_service.dart';
 import 'package:ticketing_system/view/Tasklist/daily_task_controller.dart';
+import 'package:ticketing_system/view/widgets/play_pause_button.dart';
 
 class TotalTaskController extends GetxController {
   final ApiService _apiService = ApiService();
@@ -45,9 +47,14 @@ class TotalTaskListScreen extends StatelessWidget {
                     elevation: 2,
                     margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: ListTile(
-                      leading: CircleAvatar(
-                        child: Text('${index + 1}'),
-                        radius: 14,
+                      leading: Column(
+                        children: [
+                          CircleAvatar(
+                            child: Text('${index + 1}'),
+                            radius: 14,
+                          ),
+                          Text("hey")
+                        ],
                       ),
                       title: Text(
                         task.taskName,
@@ -66,13 +73,6 @@ class TotalTaskListScreen extends StatelessWidget {
                               width: 20,
                             ),
                             SizedBox(width: 10),
-                            Icon(Icons.play_arrow,
-                                color: Colors.green.withOpacity(0.8)),
-                            SizedBox(width: 8),
-                            Text(
-                              task.timeStatus,
-                              style: TextStyle(color: Colors.grey[600]),
-                            ),
                             SizedBox(width: 10),
                             Icon(Icons.access_time),
                             SizedBox(width: 8),
@@ -80,6 +80,7 @@ class TotalTaskListScreen extends StatelessWidget {
                               '${task.totalWorkedInMin} mins',
                               style: TextStyle(color: Colors.grey[600]),
                             ),
+                            PlayPauseButton()
                           ],
                         ),
                       ),

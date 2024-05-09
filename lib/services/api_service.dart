@@ -1,21 +1,24 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 import 'package:ticketing_system/models/login_model.dart';
 import 'package:ticketing_system/models/task_modal.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:ticketing_system/services/api_endpoints.dart';
 
 class ApiService extends GetxService {
   final Dio _dio = Dio();
 
   String? authToken;
   final storage = const FlutterSecureStorage();
+  int? id = -1;
 
   //authentication of user
   Future<LoginResponse> login(LoginRequest request) async {
     try {
       final response = await _dio.post(
-        '${dotenv.env['baseUrl']}/login',
+        '${dotenv.env['baseUrl']}$loginEndpt',
         data: request.toJson(),
       );
 
@@ -23,6 +26,7 @@ class ApiService extends GetxService {
           response.data['message'] == 'Record found !!!') {
         final loginResponse = LoginResponse.fromJson(response.data);
         authToken = loginResponse.token;
+        id = loginResponse.user.id;
 
         await storage.write(key: 'loginToken', value: '$authToken');
 
@@ -45,12 +49,14 @@ class ApiService extends GetxService {
   Future<List<dynamic>> fetchDailyTasks() async {
     final loginToken = await storage.read(key: 'loginToken');
     String? token = loginToken;
+    int userID = id!;
+    print('user id $userID');
     print('token from secure storage $token');
 
     try {
       if (token != null) {
         final response = await _dio.get(
-          '${dotenv.env['baseUrl']}/dashboard/463',
+          '${dotenv.env['baseUrl']}$dashboardEndpt/$userID',
           options: Options(
             headers: {'Authorization': 'Bearer $token'},
           ),
@@ -81,12 +87,15 @@ class ApiService extends GetxService {
   /// fetching total task list
   Future<List<TotalTask>> fetchTotalTasks() async {
     print('inside the fetch total task method');
+    int userID = id!;
+    print('user id  😎😎 $userID ');
     final loginToken = await storage.read(key: 'loginToken');
     String? token = loginToken;
     try {
       if (token != null) {
+        print('user id $userID');
         final response = await _dio.get(
-          '${dotenv.env['baseUrl']}/dashboard/463',
+          '${dotenv.env['baseUrl']}$dashboardEndpt/$userID',
           options: Options(
             headers: {'Authorization': 'Bearer $token'},
           ),

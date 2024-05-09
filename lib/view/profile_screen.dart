@@ -27,12 +27,17 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+             
               ProfileFieldWidget(
                 label: 'Name',
                 value:
                     '${user.firstName} ${user.middleName ?? ''} ${user.lastName}',
                 icon: Icons.person,
               ),
+               ProfileFieldWidget(
+                  label: 'Id',
+                  value: user.id.toString(),
+                  icon: Icons.person_pin),
               ProfileFieldWidget(
                 label: 'Email',
                 value: user.emailId,

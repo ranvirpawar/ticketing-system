@@ -9,6 +9,6 @@ final routes = [
   GetPage(
       name: '/homescreen',
       page: () => HomeScreen(
-            loginResponse: Get.arguments,
+            loginResponse: Get.arguments, 
           ),), // Replace with your home view
 ];
