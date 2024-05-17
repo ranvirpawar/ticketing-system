@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../models/login_model.dart';
 import '../services/api_service.dart';
@@ -19,8 +20,26 @@ class LoginController extends GetxController {
     );
     try {
       final loginResponse = await authService.login(loginRequest);
-      print('🔛🔛' + loginResponse.toString());
+      print(loginResponse.toString());
       Get.offNamed('/homescreen', arguments: loginResponse);
+
+
+
+
+      // final reviewIdFromRespone = await authService.feedbackApiCall(FeedbackRequestModel);
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => UploaImageScreen(
+      //       reviewId: reviewIdFromRespone,
+      //     ),
+      //   ),
+      // );
+
+
+
+
+
     } catch (e) {
       print(e);
       Get.snackbar('Login Failed', e.toString(),

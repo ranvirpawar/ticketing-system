@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:ticketing_system/view/home_screen.dart';
-import 'package:ticketing_system/view/login_view.dart';
-import 'package:ticketing_system/view/dashboard_screen.dart';
+import 'package:ticketing_system/view/screens/home_screen.dart';
+import 'package:ticketing_system/view/screens/login_view.dart';
+import 'package:ticketing_system/view/screens/dashboard_screen.dart';
 
 final routes = [
   GetPage(name: '/', page: () => LoginView()),

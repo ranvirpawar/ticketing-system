@@ -1,32 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+
+import 'package:ticketing_system/view/Tasklist/notification/total_task_controller.dart';
+
 import 'package:ticketing_system/constants/icons.dart';
-import 'package:ticketing_system/models/task_modal.dart';
-import 'package:ticketing_system/services/api_service.dart';
-import 'package:ticketing_system/view/Tasklist/daily_task_controller.dart';
 import 'package:ticketing_system/view/widgets/play_pause_button.dart';
-
-class TotalTaskController extends GetxController {
-  final ApiService _apiService = ApiService();
-  final tasks = <TotalTask>[].obs;
-
-  @override
-  void onInit() {
-    fetchTasks();
-    super.onInit();
-  }
-
-  void fetchTasks() async {
-    try {
-      final fetchedTasks = await _apiService.fetchTotalTasks();
-      tasks.assignAll(fetchedTasks);
-    } catch (e) {
-      print('Error fetching tasks: $e');
-    }
-  }
-}
 
 class TotalTaskListScreen extends StatelessWidget {
   final taskController = Get.put(TotalTaskController());
@@ -47,42 +25,45 @@ class TotalTaskListScreen extends StatelessWidget {
                     elevation: 2,
                     margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: ListTile(
-                      leading: Column(
-                        children: [
-                          CircleAvatar(
-                            child: Text('${index + 1}'),
-                            radius: 14,
-                          ),
-                          Text("hey")
-                        ],
+                      leading: CircleAvatar(
+                        child: Text('${index + 1}'),
+                        radius: 14,
                       ),
                       title: Text(
                         task.taskName,
                         style: TextStyle(),
                       ),
-                      subtitle: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              task.status == 'TO_DO'
-                                  ? todoIcon
-                                  : task.status == 'IN_PROGRESS'
-                                      ? inProgressIcon
-                                      : completedIcon,
-                              width: 20,
+                      subtitle: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Image.asset(
+                                  task.status == 'TO_DO'
+                                      ? todoIcon
+                                      : task.status == 'IN_PROGRESS'
+                                          ? inProgressIcon
+                                          : completedIcon,
+                                  width: 24,
+                                ),
+                                const SizedBox(width: 20),
+                                const Icon(Icons.access_time),
+                                const SizedBox(width: 10),
+                                Text(
+                                  '${task.totalWorkedInMin} mins',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
+                              ],
                             ),
-                            SizedBox(width: 10),
-                            SizedBox(width: 10),
-                            Icon(Icons.access_time),
-                            SizedBox(width: 8),
-                            Text(
-                              '${task.totalWorkedInMin} mins',
-                              style: TextStyle(color: Colors.grey[600]),
-                            ),
-                            PlayPauseButton()
-                          ],
-                        ),
+                          ),
+                          PlayPauseButton(
+                            task: task,
+                            index: index,
+                          ),
+                        ],
                       ),
                     ),
                   );

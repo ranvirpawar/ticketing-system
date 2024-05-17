@@ -157,6 +157,7 @@ class TotalTask {
   String mainTicketId;
   String endDate;
   String status;
+  bool isPlaying;
 
   TotalTask({
     required this.id,
@@ -174,6 +175,7 @@ class TotalTask {
     required this.mainTicketId,
     required this.endDate,
     required this.status,
+    this.isPlaying = false,
   });
 
   factory TotalTask.fromJson(Map<String, dynamic> json) => TotalTask(

@@ -4,8 +4,8 @@ import 'package:ticketing_system/constants/text_strings.dart';
 import 'package:ticketing_system/models/login_model.dart';
 import 'package:ticketing_system/view/Tasklist/daily_task.dart';
 import 'package:ticketing_system/view/Tasklist/total_task_list.dart';
-import 'package:ticketing_system/view/dashboard_screen.dart';
-import 'package:ticketing_system/view/profile_screen.dart';
+import 'package:ticketing_system/view/screens/dashboard_screen.dart';
+import 'package:ticketing_system/view/screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final LoginResponse loginResponse;

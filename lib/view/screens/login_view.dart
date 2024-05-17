@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ticketing_system/constants/colors.dart';
 import 'package:ticketing_system/services/api_service.dart';
-import '../controllers/login_controller.dart';
+import '../../controllers/login_controller.dart';
 
 class LoginView extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();

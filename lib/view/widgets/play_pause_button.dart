@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:ticketing_system/models/task_modal.dart';
+import 'package:ticketing_system/view/Tasklist/notification/total_task_controller.dart';
 
 class PlayPauseButton extends StatelessWidget {
-  final controller = Get.put(PlayPauseController());
+  final TotalTask task;
+  final int index;
+
+  PlayPauseButton({required this.task, required this.index});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        controller.togglePlayPause();
+    final controller = Get.find<TotalTaskController>();
+    return GetBuilder<TotalTaskController>(
+      builder: (controller) {
+        return IconButton(
+          icon: Icon(
+            task.isPlaying ? Icons.pause : Icons.play_arrow,
+            color: task.isPlaying ? Colors.red : Colors.green,
+          ),
+          onPressed: () {
+            controller.showNotification(task, !task.isPlaying, index);
+          },
+        );
       },
-      child: Obx(() => Icon(
-            controller.isPlaying.value ? Icons.pause : Icons.play_arrow,
-            color: Colors.green.withOpacity(0.8),
-            size: 50, // Adjust icon size as needed
-          )),
     );
-  }
-}
-
-class PlayPauseController extends GetxController {
-  var isPlaying = false.obs;
-
-  void togglePlayPause() {
-    isPlaying.toggle();
   }
 }
