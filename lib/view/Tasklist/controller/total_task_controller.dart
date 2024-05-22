@@ -45,7 +45,7 @@ class TotalTaskController extends GetxController {
       tasks.assignAll(fetchedTasks);
     } catch (e) {
       
-      print('Error fetching tasks: $e');
+         print('Error fetching tasks: $e');
     }
   }
 

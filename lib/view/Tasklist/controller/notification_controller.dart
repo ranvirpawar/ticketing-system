@@ -2,7 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ticketing_system/models/task_modal.dart';
-import 'package:ticketing_system/view/Tasklist/notification/total_task_controller.dart';
+import 'package:ticketing_system/view/Tasklist/controller/total_task_controller.dart';
  
 class NotificationController {
   @pragma("vm:entry-point")

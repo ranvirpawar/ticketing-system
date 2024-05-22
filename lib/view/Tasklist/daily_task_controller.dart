@@ -10,6 +10,7 @@ class TaskController extends GetxController {
     super.onInit();
     fetchDailyTasks();
     print('called the FetchDailyTask on init method');
+    
   }
 
   Future<void> fetchDailyTasks() async {
