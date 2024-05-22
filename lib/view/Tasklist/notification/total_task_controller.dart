@@ -44,6 +44,7 @@ class TotalTaskController extends GetxController {
       final fetchedTasks = await _apiService.fetchTotalTasks();
       tasks.assignAll(fetchedTasks);
     } catch (e) {
+      
       print('Error fetching tasks: $e');
     }
   }

@@ -3,24 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ticketing_system/models/task_modal.dart';
 import 'package:ticketing_system/view/Tasklist/notification/total_task_controller.dart';
-
+ 
 class NotificationController {
   @pragma("vm:entry-point")
   static Future<void> onNotificationCreatedMethod(
       ReceivedNotification receivedNotification) async {
-    // Do something when a new notification or a schedule is created
+    // method to do something when a notification is created
   }
 
   @pragma("vm:entry-point")
   static Future<void> onNotificationDisplayedMethod(
       ReceivedNotification receivedNotification) async {
-    // Do something when a notification is displayed
+    //method to do something when a notification is displayed
   }
 
   @pragma("vm:entry-point")
   static Future<void> onDismissActionReceivedMethod(
       ReceivedAction receivedAction) async {
-    // Do something when the user dismisses a notification
+    // method to do something when a notification is dismissed
   }
 
   @pragma("vm:entry-point")
@@ -45,7 +45,6 @@ class NotificationController {
         controller.handlePreviousTaskAction(taskIndex);
         break;
       default:
-        // Handle other actions if needed
         break;
     }
   }
