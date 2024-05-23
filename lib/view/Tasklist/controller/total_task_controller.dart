@@ -73,6 +73,7 @@ class TotalTaskController extends GetxController {
         displayOnForeground: true,
         backgroundColor: Colors.black,
         color: Colors.white,
+        showWhen: true,
       ),
       actionButtons: [
         NotificationActionButton(
@@ -100,7 +101,6 @@ class TotalTaskController extends GetxController {
           autoDismissible: false,
           actionType: ActionType.KeepOnTop,
           color: Colors.white,
-
           icon: 'resource://drawable/ic_next', // Specify your icon here
           enabled: index < tasks.length - 1,
         ),
