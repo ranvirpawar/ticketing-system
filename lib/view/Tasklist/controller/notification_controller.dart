@@ -1,9 +1,8 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ticketing_system/models/task_modal.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:ticketing_system/view/Tasklist/controller/total_task_controller.dart';
- 
+
 class NotificationController {
   @pragma("vm:entry-point")
   static Future<void> onNotificationCreatedMethod(
@@ -14,7 +13,7 @@ class NotificationController {
   @pragma("vm:entry-point")
   static Future<void> onNotificationDisplayedMethod(
       ReceivedNotification receivedNotification) async {
-    //method to do something when a notification is displayed
+    // method to do something when a notification is displayed
   }
 
   @pragma("vm:entry-point")

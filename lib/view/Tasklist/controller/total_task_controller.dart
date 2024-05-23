@@ -1,9 +1,9 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ticketing_system/constants/icons.dart';
 import 'package:ticketing_system/models/task_modal.dart';
 import 'package:ticketing_system/services/api_service.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'notification_controller.dart';
 
 class TotalTaskController extends GetxController {
@@ -31,6 +31,11 @@ class TotalTaskController extends GetxController {
           channelDescription: 'Notifications for task management',
           defaultColor: Colors.blue,
           ledColor: Colors.white,
+          importance: NotificationImportance.Max,
+          channelShowBadge: true,
+          onlyAlertOnce: true,
+          locked: true,
+          defaultPrivacy: NotificationPrivacy.Public,
         ),
       ],
     );
@@ -44,12 +49,11 @@ class TotalTaskController extends GetxController {
       final fetchedTasks = await _apiService.fetchTotalTasks();
       tasks.assignAll(fetchedTasks);
     } catch (e) {
-      
-         print('Error fetching tasks: $e');
+      print('Error fetching tasks: $e');
     }
   }
 
-  void showNotification(TotalTask task, bool isPlaying, int index) {
+  void showMediaNotification(TotalTask task, bool isPlaying, int index) {
     currentTaskIndex = index;
     AwesomeNotifications().createNotification(
       content: NotificationContent(
@@ -58,29 +62,47 @@ class TotalTaskController extends GetxController {
         title: isPlaying ? 'Task Playing' : 'Task Paused',
         body: task.taskName,
         notificationLayout: NotificationLayout.MediaPlayer,
+        bigPicture: techneAiLogo,
         payload: {
-          'action': isPlaying ? 'PAUSE' : 'PLAY',
           'taskIndex': index.toString(),
         },
+        autoDismissible: false,
+        locked: true,
+        category: NotificationCategory.Service,
+        displayOnBackground: true,
+        displayOnForeground: true,
+        backgroundColor: Colors.black,
+        color: Colors.white,
       ),
       actionButtons: [
+        NotificationActionButton(
+          key: 'PREVIOUS_TASK',
+          label: 'Previous',
+          autoDismissible: false,
+          actionType: ActionType.KeepOnTop,
+          icon: 'resource://drawable/ic_previous', // Specify your icon here
+          enabled: index > 0,
+          color: Colors.white,
+        ),
         NotificationActionButton(
           key: isPlaying ? 'PAUSE_Task' : 'PLAY_Task',
           label: isPlaying ? 'Pause' : 'Play',
           autoDismissible: false,
           actionType: ActionType.KeepOnTop,
+          icon: isPlaying
+              ? 'resource://drawable/ic_pause'
+              : 'resource://drawable/ic_play',
+          color: Colors.white,
         ),
         NotificationActionButton(
           key: 'NEXT_TASK',
           label: 'Next',
           autoDismissible: false,
           actionType: ActionType.KeepOnTop,
-        ),
-        NotificationActionButton(
-          key: 'PREVIOUS_TASK',
-          label: 'Previous',
-          autoDismissible: false,
-          actionType: ActionType.KeepOnTop,
+          color: Colors.white,
+
+          icon: 'resource://drawable/ic_next', // Specify your icon here
+          enabled: index < tasks.length - 1,
         ),
       ],
     );
@@ -90,14 +112,14 @@ class TotalTaskController extends GetxController {
     tasks[taskIndex].isPlaying = true; // Update task status
     currentTaskIndex = taskIndex;
     update(['task_list']);
-    showNotification(tasks[currentTaskIndex!], true, currentTaskIndex!);
+    showMediaNotification(tasks[currentTaskIndex!], true, currentTaskIndex!);
   }
 
   void handlePauseTaskAction(int taskIndex) {
     tasks[taskIndex].isPlaying = false; // Update task status
     currentTaskIndex = taskIndex;
     update(['task_list']);
-    showNotification(tasks[currentTaskIndex!], false, currentTaskIndex!);
+    showMediaNotification(tasks[currentTaskIndex!], false, currentTaskIndex!);
   }
 
   void handleNextTaskAction(int taskIndex) {
@@ -107,7 +129,7 @@ class TotalTaskController extends GetxController {
       tasks[taskIndex].isPlaying = false; // Stop playing the current task
       currentTaskIndex = taskIndex + 1;
       update(['task_list']);
-      showNotification(nextTask, true, currentTaskIndex!);
+      showMediaNotification(nextTask, true, currentTaskIndex!);
     }
   }
 
@@ -118,7 +140,7 @@ class TotalTaskController extends GetxController {
       tasks[taskIndex].isPlaying = false; // Stop playing the current task
       currentTaskIndex = taskIndex - 1;
       update(['task_list']);
-      showNotification(previousTask, true, currentTaskIndex!);
+      showMediaNotification(previousTask, true, currentTaskIndex!);
     }
   }
 }

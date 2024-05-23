@@ -30,7 +30,7 @@ class _TaskScreenState extends State<TaskScreen> {
         () {
           final dailyTasks = _taskController.dailyTasks;
           if (dailyTasks.isEmpty) {
-            return Center(
+            return const Center(
               child: Text('No daily tasks'),
             );
           }

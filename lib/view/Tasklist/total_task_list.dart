@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:ticketing_system/view/Tasklist/controller/total_task_controller.dart';
-
 import 'package:ticketing_system/constants/icons.dart';
 import 'package:ticketing_system/view/widgets/play_pause_button.dart';
 
 class TotalTaskListScreen extends StatelessWidget {
   final taskController = Get.put(TotalTaskController());
+
+  TotalTaskListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -20,7 +20,7 @@ class PlayPauseButton extends StatelessWidget {
             color: task.isPlaying ? Colors.red : Colors.green,
           ),
           onPressed: () {
-            controller.showNotification(task, !task.isPlaying, index);
+            controller.showMediaNotification(task, !task.isPlaying, index);
           },
         );
       },

@@ -8,7 +8,6 @@ class TasksResponse {
     required this.status,
     required this.data,
   });
-
   factory TasksResponse.fromJson(Map<String, dynamic> json) => TasksResponse(
         message: json["message"],
         status: json["status"],
